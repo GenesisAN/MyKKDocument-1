@@ -3,7 +3,7 @@ import type { DefaultThemeOptions } from 'vuepress'
 export default defineUserConfig<DefaultThemeOptions>({
     // 站点配置
     lang: 'zh-CN',
-    title: 'KK社群文档中心',
+    title: 'KK社区文档',
     description: '开源、自由的KK社区文档',
     base: '/',
     plugins: [
@@ -28,19 +28,34 @@ export default defineUserConfig<DefaultThemeOptions>({
         [
             '@vuepress/plugin-google-analytics',
             {
-                id: 'G-CZJ8X185MG'
+                id: 'G-VRCH9VZR9D'
             }
         ],
         [
-            "@vuepress/plugin-docsearch",
+            '@vuepress/plugin-search',
             {
-                apiKey: '4cfe0f33be16c346fed77effff922cf8',
-                indexName: 'go-cqhttp',
-                algoliaOptions: {
-                    facetFilters: ["lang:en-US"],
+              isSearchable: (page) => page.path !== '/',
+              getExtraFields: (page) => page.frontmatter.tags ?? [],
+              locales: {
+                '/': {
+                  placeholder: 'Search',
                 },
-            }
-        ]
+                '/zh/': {
+                  placeholder: '搜索',
+                },
+              },
+            },
+        ],
+        // [
+        //     "@vuepress/plugin-docsearch",
+        //     {
+        //         apiKey: '4cfe0f33be16c346fed77effff922cf8',
+        //         indexName: 'go-cqhttp',
+        //         algoliaOptions: {
+        //             facetFilters: ["lang:en-US"],
+        //         },
+        //     }
+        // ]
     ],
 
     // 主题和它的配置
@@ -59,8 +74,9 @@ export default defineUserConfig<DefaultThemeOptions>({
         danger: "警告",
         backToHome: "返回首页",
         navbar: [
-            { text: '指南',children: ['/guide/','/guide/use_web.md','/guide/write_docs/']},
-            { text: '插件', children: ['/plugin/','/plugin/use_plugin.md','/plugin/dev_plugin.md',]},
+            {text:  '指南', link: '/guide/',} ,
+            //{ text: '指南',children: ['/guide/','/guide/write_docs/','/guide/up_docs/']},
+            { text: '插件', children: ['/plugin/','/plugin/use_plugin.md','/plugin/dev_plugin.md',"/plugin/use_sema"]},
             { text: '模组', children: ['/mode/','/mode/use_mode.md','/mode/dev_mode.md',]},
             { text: 'FAQ', link: '/faq/' }
         ],
